@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="solar-system">
+    
+    <button class="planet-button" style="top: 322px; left: 270px;" onclick="showPlanetInfo('Mercury')">Mercury</button>
+    <button class="planet-button" style="top: 322px; left: 370px;" onclick="showPlanetInfo('Venus')">Venus</button>
+    <button class="planet-button" style="top: 322px; left: 500px;" onclick="showPlanetInfo('Earth')">Earth</button>
+    <button class="planet-button" style="top: 322px; left: 610px;" onclick="showPlanetInfo('Mars')">Mars</button>
+    <button class="planet-button" style="top: 322px; left: 780px;" onclick="showPlanetInfo('Jupiter')">Jupiter</button>
+    <button class="planet-button" style="top: 322px; left: 980px;" onclick="showPlanetInfo('Saturn')">Saturn</button>
+    <button class="planet-button" style="top: 322px; left: 1160px;" onclick="showPlanetInfo('Uranus')">Uranus</button>
+    <button class="planet-button" style="top: 322px; left: 1300px;" onclick="showPlanetInfo('Neptune')">Neptune</button>
+    <div id="planet-info" class="planet-info"></div> 
+  </div>
+
+
+
+
+  <script type="module">
+    const API_URL = "http://localhost:3000/planets";
+
+    const fetchPlanetInfo = async (planetId) => {
+      try {
+        const response = await fetch(`${API_URL}?id=${planetId.toLowerCase()}`);
+        const data = await response.json();
+        return data.length ? data[0] : null;
+      } catch (error) {
+        console.error("Error fetching planet data:", error);
+        return null;
+      }
+    };
+
+    const showPlanetInfo = async (planetId) => {
+      const planetInfoElement = document.getElementById("planet-info");
+      if (planetInfoElement) {
+        planetInfoElement.innerHTML = "Loading...";
+
+        const planet = await fetchPlanetInfo(planetId);
+        if (planet) {
+          planetInfoElement.innerHTML = `
+            <h2>${planet.name}</h2>
+            <p>${planet.description}</p>
+          `;
+          planetInfoElement.scrollIntoView({ behavior: "smooth" });
+        } else {
+          planetInfoElement.innerHTML = "<p>Planet information not found.</p>";
+        }
+      }
+    };
+
+    // Gắn hàm vào phạm vi toàn cục
+    window.showPlanetInfo = showPlanetInfo;
+  </script>
+</body>
+</html>

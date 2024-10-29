@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "target": "ES6",                       // Chọn phiên bản ECMAScript bạn muốn biên dịch
+      "lib": ["ES2015", "DOM"],              // Thêm thư viện cho Promise và DOM
+      "module": "ESNext",                     // Sử dụng module ESNext
+      "strict": true,                         // Bật chế độ nghiêm ngặt
+      "esModuleInterop": true,                // Cho phép tương tác giữa CommonJS và ES Modules
+      "skipLibCheck": true                    // Bỏ qua kiểm tra kiểu trong các tệp thư viện
+    },
+    "include": ["script.ts"],                 // Bao gồm tệp TypeScript của bạn
+    "exclude": ["node_modules"]               // Loại bỏ thư mục node_modules
+  }
+
